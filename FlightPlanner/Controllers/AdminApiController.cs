@@ -2,7 +2,10 @@
 using System.Linq;
 using System.Security.Cryptography.Xml;
 using System.Threading.Tasks;
-using FlightPlanner.Interfaces;
+using FlightPlanner.Core;
+using FlightPlanner.Core.Interfaces;
+using FlightPlanner.Core.Models;
+using FlightPlanner.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;

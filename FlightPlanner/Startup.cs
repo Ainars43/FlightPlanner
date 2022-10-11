@@ -1,7 +1,7 @@
-using System.Data.Entity.Migrations.Model;
+using FlightPlanner.Core;
+using FlightPlanner.Data;
 using FlightPlanner.Filters;
-using FlightPlanner.Interfaces;
-using FlightPlanner.Validators;
+using FlightPlanner.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -37,8 +37,8 @@ namespace FlightPlanner
                 options.UseSqlServer(Configuration.GetConnectionString("flight-planner"));
             });
 
-            services.AddTransient<IFlightStorage, FlightStorage>();
-            services.AddTransient<IFlightPlannerDbContext, FlightPlannerDbContext>();
+            services.AddScoped<IFlightStorage, FlightStorage>();
+            services.AddScoped<IFlightPlannerDbContext, FlightPlannerDbContext>();
             //services.AddTransient<IValidator, AddFlightRequestValidator>();
             //services.AddTransient<IValidator, AirportNameDuplicationValidator>();
             //services.AddTransient<IValidator, CorrectTimeValidator>();

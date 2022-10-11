@@ -1,5 +1,6 @@
 ﻿using System.Linq;
-using FlightPlanner.Interfaces;
+using FlightPlanner.Core;
+using FlightPlanner.Core.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FlightPlanner.Controllers
