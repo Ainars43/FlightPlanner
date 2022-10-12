@@ -1,10 +1,14 @@
-﻿namespace FlightPlanner.Services.Validators
+﻿using FlightPlanner.Core.Interfaces;
+using FlightPlanner.Core.Models;
+using FlightPlanner.Core.Requests;
+
+namespace FlightPlanner.Services.Validators
 {
     public class ArrivalTimeValidator : IValidator
     {
-        public bool Validate(Flight flight)
+        public bool Validate(FlightRequest request)
         {
-            return !string.IsNullOrEmpty(flight?.ArrivalTime);
+            return !string.IsNullOrEmpty(request?.ArrivalTime);
         }
     }
 }

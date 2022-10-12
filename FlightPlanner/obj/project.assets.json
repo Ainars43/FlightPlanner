@@ -2644,7 +2644,8 @@
         "framework": ".NETCoreApp,Version=v5.0",
         "dependencies": {
           "FlightPlanner.Core": "1.0.0",
-          "Microsoft.EntityFrameworkCore": "5.0.17"
+          "Microsoft.EntityFrameworkCore": "5.0.17",
+          "Microsoft.EntityFrameworkCore.SqlServer": "5.0.17"
         },
         "compile": {
           "bin/placeholder/FlightPlanner.Data.dll": {}

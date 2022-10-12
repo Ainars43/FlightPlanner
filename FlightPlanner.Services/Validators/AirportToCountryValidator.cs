@@ -1,13 +1,14 @@
 ﻿using FlightPlanner.Core.Interfaces;
 using FlightPlanner.Core.Models;
+using FlightPlanner.Core.Requests;
 
 namespace FlightPlanner.Services.Validators
 {
     public class AirportToCountryValidator : IValidator
     {
-        public bool Validate(Flight flight)
+        public bool Validate(FlightRequest request)
         {
-            return !string.IsNullOrEmpty(flight?.To?.Country);
+            return !string.IsNullOrEmpty(request?.To?.Country);
         }
     }
 }

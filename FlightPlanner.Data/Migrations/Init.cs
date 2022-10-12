@@ -1,4 +1,6 @@
-﻿namespace FlightPlanner.Data.Migrations
+﻿using Microsoft.EntityFrameworkCore.Migrations;
+
+namespace FlightPlanner.Data.Migrations
 {
     public partial class Init : Migration
     {

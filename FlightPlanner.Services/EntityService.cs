@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FlightPlanner.Core;
 using FlightPlanner.Core.Models;
 using FlightPlanner.Data;
-using Microsoft.EntityFrameworkCore.Internal;
 
 namespace FlightPlanner.Services
 {

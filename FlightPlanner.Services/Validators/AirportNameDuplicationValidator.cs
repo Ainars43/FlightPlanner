@@ -1,14 +1,15 @@
 ﻿using System;
 using FlightPlanner.Core.Interfaces;
 using FlightPlanner.Core.Models;
+using FlightPlanner.Core.Requests;
 
 namespace FlightPlanner.Services.Validators
 {
     public class AirportNameDuplicationValidator : IValidator
     {
-        public bool Validate(Flight flight)
+        public bool Validate(FlightRequest request)
         {
-            return !string.Equals(flight.From.AirportCode.Trim(), flight.To.AirportCode.Trim(), StringComparison.CurrentCultureIgnoreCase);
+            return !string.Equals(request.From.Airport.Trim(), request.To.Airport.Trim(), StringComparison.CurrentCultureIgnoreCase);
         }
     }
 }
