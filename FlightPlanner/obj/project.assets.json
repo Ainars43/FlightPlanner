@@ -31,25 +31,6 @@
           "lib/netstandard2.1/AutoMapper.Extensions.Microsoft.DependencyInjection.dll": {}
         }
       },
-      "EntityFramework/6.0.0": {
-        "type": "package",
-        "compile": {
-          "lib/net45/EntityFramework.SqlServer.dll": {
-            "related": ".xml"
-          },
-          "lib/net45/EntityFramework.dll": {
-            "related": ".SqlServer.xml;.xml"
-          }
-        },
-        "runtime": {
-          "lib/net45/EntityFramework.SqlServer.dll": {
-            "related": ".xml"
-          },
-          "lib/net45/EntityFramework.dll": {
-            "related": ".SqlServer.xml;.xml"
-          }
-        }
-      },
       "FluentValidation/11.2.2": {
         "type": "package",
         "compile": {
@@ -74,15 +55,6 @@
           "lib/netstandard2.0/Humanizer.dll": {
             "related": ".xml"
           }
-        }
-      },
-      "Microsoft.AspNet.Cors/5.2.9": {
-        "type": "package",
-        "compile": {
-          "lib/net45/System.Web.Cors.dll": {}
-        },
-        "runtime": {
-          "lib/net45/System.Web.Cors.dll": {}
         }
       },
       "Microsoft.AspNet.WebApi.Client/5.2.9": {
@@ -114,23 +86,6 @@
         },
         "runtime": {
           "lib/net45/System.Web.Http.dll": {
-            "related": ".xml"
-          }
-        }
-      },
-      "Microsoft.AspNet.WebApi.Cors/5.2.9": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.AspNet.Cors": "5.2.9",
-          "Microsoft.AspNet.WebApi.Core": "[5.2.9, 5.3.0)"
-        },
-        "compile": {
-          "lib/net45/System.Web.Http.Cors.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net45/System.Web.Http.Cors.dll": {
             "related": ".xml"
           }
         }
@@ -2632,6 +2587,9 @@
       "FlightPlanner.Core/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v5.0",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore.Abstractions": "5.0.17"
+        },
         "compile": {
           "bin/placeholder/FlightPlanner.Core.dll": {}
         },
@@ -2643,6 +2601,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v5.0",
         "dependencies": {
+          "AutoMapper.Extensions.Microsoft.DependencyInjection": "12.0.0",
           "FlightPlanner.Core": "1.0.0",
           "Microsoft.EntityFrameworkCore": "5.0.17",
           "Microsoft.EntityFrameworkCore.SqlServer": "5.0.17"
@@ -2700,36 +2659,6 @@
         "lib/netstandard2.1/AutoMapper.Extensions.Microsoft.DependencyInjection.dll"
       ]
     },
-    "EntityFramework/6.0.0": {
-      "sha512": "y6lX/VMghGBV6TvgQS4Q2WK6kAcOoyD+TQxObN9utd0JsMMdMxyqARxKbvgi7KEIbQ8osZ4ZvImaly7l3NDFDw==",
-      "type": "package",
-      "path": "entityframework/6.0.0",
-      "hasTools": true,
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "Content/App.config.transform",
-        "Content/Web.config.transform",
-        "entityframework.6.0.0.nupkg.sha512",
-        "entityframework.nuspec",
-        "lib/net40/EntityFramework.SqlServer.dll",
-        "lib/net40/EntityFramework.SqlServer.xml",
-        "lib/net40/EntityFramework.dll",
-        "lib/net40/EntityFramework.xml",
-        "lib/net45/EntityFramework.SqlServer.dll",
-        "lib/net45/EntityFramework.SqlServer.xml",
-        "lib/net45/EntityFramework.dll",
-        "lib/net45/EntityFramework.xml",
-        "tools/EntityFramework.PowerShell.Utility.dll",
-        "tools/EntityFramework.PowerShell.dll",
-        "tools/EntityFramework.psd1",
-        "tools/EntityFramework.psm1",
-        "tools/about_EntityFramework.help.txt",
-        "tools/init.ps1",
-        "tools/install.ps1",
-        "tools/migrate.exe"
-      ]
-    },
     "FluentValidation/11.2.2": {
       "sha512": "5QEte2BUZZF6Sezeekr7Zu1THfgpxU7pmuL2SjIrajuGMah+pxPGiRiLtw+x/tSUSSVmcv9LrUe41lKu4l0n4A==",
       "type": "package",
@@ -2767,20 +2696,6 @@
         "logo.png"
       ]
     },
-    "Microsoft.AspNet.Cors/5.2.9": {
-      "sha512": "LUjfvaOu0q9bz523CYmIE06Q9EttrpKuRLm3T83spF6oX+dYiFlLJFLm4RveGKq/puRJC5KTnXdbWGLqM783jA==",
-      "type": "package",
-      "path": "microsoft.aspnet.cors/5.2.9",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "NET.icon.png",
-        "NET_Library_EULA_ENU.txt",
-        "lib/net45/System.Web.Cors.dll",
-        "microsoft.aspnet.cors.5.2.9.nupkg.sha512",
-        "microsoft.aspnet.cors.nuspec"
-      ]
-    },
     "Microsoft.AspNet.WebApi.Client/5.2.9": {
       "sha512": "cuVhPjjNMSEFpKXweMNBbsG4RUFuuZpFBm8tSyw309U9JEjcnbB6n3EPb4xwgcy9bJ38ctIbv5G8zXUBhlrPWw==",
       "type": "package",
@@ -2814,21 +2729,6 @@
         "lib/net45/System.Web.Http.xml",
         "microsoft.aspnet.webapi.core.5.2.9.nupkg.sha512",
         "microsoft.aspnet.webapi.core.nuspec"
-      ]
-    },
-    "Microsoft.AspNet.WebApi.Cors/5.2.9": {
-      "sha512": "G8gAuv1+m3yCxUD1Ujb3NTHsr3HlZopkNxJ4BsqOaxY1ryW43wR9PQxIzle1GciQrE5pcVzawEgiWcbxoIBpHg==",
-      "type": "package",
-      "path": "microsoft.aspnet.webapi.cors/5.2.9",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "NET.icon.png",
-        "NET_Library_EULA_ENU.txt",
-        "lib/net45/System.Web.Http.Cors.dll",
-        "lib/net45/System.Web.Http.Cors.xml",
-        "microsoft.aspnet.webapi.cors.5.2.9.nupkg.sha512",
-        "microsoft.aspnet.webapi.cors.nuspec"
       ]
     },
     "Microsoft.CSharp/4.7.0": {
@@ -8166,13 +8066,11 @@
   "projectFileDependencyGroups": {
     "net5.0": [
       "AutoMapper.Extensions.Microsoft.DependencyInjection >= 12.0.0",
-      "EntityFramework >= 6.0.0",
       "FlightPlanner.Core >= 1.0.0",
       "FlightPlanner.Data >= 1.0.0",
       "FlightPlanner.Services >= 1.0.0",
       "FluentValidation >= 11.2.2",
       "Microsoft.AspNet.WebApi.Core >= 5.2.9",
-      "Microsoft.AspNet.WebApi.Cors >= 5.2.9",
       "Microsoft.EntityFrameworkCore >= 5.0.17",
       "Microsoft.EntityFrameworkCore.SqlServer >= 5.0.17",
       "Microsoft.EntityFrameworkCore.Tools >= 5.0.17",
@@ -8237,19 +8135,11 @@
             "target": "Package",
             "version": "[12.0.0, )"
           },
-          "EntityFramework": {
-            "target": "Package",
-            "version": "[6.0.0, )"
-          },
           "FluentValidation": {
             "target": "Package",
             "version": "[11.2.2, )"
           },
           "Microsoft.AspNet.WebApi.Core": {
-            "target": "Package",
-            "version": "[5.2.9, )"
-          },
-          "Microsoft.AspNet.WebApi.Cors": {
             "target": "Package",
             "version": "[5.2.9, )"
           },
@@ -8300,38 +8190,8 @@
       "code": "NU1701",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "Package 'EntityFramework 6.0.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net5.0'. This package may not be fully compatible with your project.",
-      "libraryId": "EntityFramework",
-      "targetGraphs": [
-        "net5.0"
-      ]
-    },
-    {
-      "code": "NU1701",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Package 'Microsoft.AspNet.Cors 5.2.9' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net5.0'. This package may not be fully compatible with your project.",
-      "libraryId": "Microsoft.AspNet.Cors",
-      "targetGraphs": [
-        "net5.0"
-      ]
-    },
-    {
-      "code": "NU1701",
-      "level": "Warning",
-      "warningLevel": 1,
       "message": "Package 'Microsoft.AspNet.WebApi.Core 5.2.9' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net5.0'. This package may not be fully compatible with your project.",
       "libraryId": "Microsoft.AspNet.WebApi.Core",
-      "targetGraphs": [
-        "net5.0"
-      ]
-    },
-    {
-      "code": "NU1701",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Package 'Microsoft.AspNet.WebApi.Cors 5.2.9' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net5.0'. This package may not be fully compatible with your project.",
-      "libraryId": "Microsoft.AspNet.WebApi.Cors",
       "targetGraphs": [
         "net5.0"
       ]
