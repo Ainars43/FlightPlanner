@@ -1,8 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.Xml;
-using System.Threading.Tasks;
-using FlightPlanner.Interfaces;
+using AutoMapper;
+using FlightPlanner.Core;
+using FlightPlanner.Core.Interfaces;
+using FlightPlanner.Core.Models;
+using FlightPlanner.Core.Requests;
+using FlightPlanner.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
@@ -18,53 +21,47 @@ namespace FlightPlanner.Controllers
         private readonly object balanceLock = new object();
         private readonly FlightPlannerDbContext _context;
         private readonly IEnumerable<IValidator> _validators;
-        private readonly IFlightStorage _flightStorage;
+        private readonly IFlightService _flightService;
+        private readonly IMapper _mapper;
 
-        public AdminApiController(FlightPlannerDbContext context, IEnumerable<IValidator> validators, IFlightStorage flightStorage)
+        public AdminApiController(FlightPlannerDbContext context, IEnumerable<IValidator> validators, IFlightService flightService, IMapper mapper)
         {
             _context = context;
             _validators = validators;
-            _flightStorage = flightStorage;
+            _flightService = flightService;
+            _mapper = mapper;
         }
 
-        [Route("flights/{id}")]
+        [Route("flights/{id:int}")]
         [HttpGet]
         public IActionResult GetFlight(int id)
         {
-            var flight = _context.Flights.
-                Include(f => f.From).
-                Include(f => f.To).FirstOrDefault(f => f.Id == id);
+            var flight = _flightService.GetFlight(id);
 
-            if (flight == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(flight);
-
-            //return flight == null ? NotFound() : (IActionResult)Ok(flight);
+            return flight == null ? NotFound() : (IActionResult)Ok(flight);
         }
 
         [Route("flights")]
         [HttpPut]
-        public IActionResult PutFlight(Flight flight)
+        public IActionResult PutFlight(FlightRequest request)
         {
             
-            if (!_validators.All(validator => validator.Validate(flight)))
+            if (!_validators.All(validator => validator.Validate(request)))
             {
                 return BadRequest();
             }
 
             lock (balanceLock)
             {
-                if (_flightStorage.FlightAlreadyExists(flight))
+                if (_flightService.FlightAlreadyExists(request))
                 {
                     return Conflict();
                 }
 
-                _context.Flights.Add(flight);
-                _context.SaveChanges();
-                return Created("", flight);
+                var flight = _mapper.Map<Flight>(request);
+                _flightService.Create(flight);
+
+                return Created("", _mapper.Map<FlightRequest>(flight));
             }
         }
 
@@ -74,10 +71,7 @@ namespace FlightPlanner.Controllers
         {
             lock (balanceLock)
             {
-                var flight = _context.Flights.FirstOrDefault(f => f.Id == id);
-                if (flight == null) return Ok();
-                _context.Flights.Remove(flight);
-                _context.SaveChanges();
+                _flightService.DeleteFlightById(id);
 
                 return Ok();
             }

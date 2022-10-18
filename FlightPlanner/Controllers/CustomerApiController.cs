@@ -1,5 +1,8 @@
 ﻿using System.Linq;
-using FlightPlanner.Interfaces;
+using AutoMapper;
+using FlightPlanner.Core;
+using FlightPlanner.Core.Models;
+using FlightPlanner.Core.Requests;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FlightPlanner.Controllers
@@ -9,12 +12,15 @@ namespace FlightPlanner.Controllers
     public class CustomerApiController : ControllerBase
     {
         private static readonly object balanceLock = new object();
-        private readonly IFlightStorage _flightStorage;
+        private readonly IFlightService _flightService;
+        private readonly IAirportService _airportService;
+        private readonly IMapper _mapper;
 
-        public CustomerApiController(IFlightStorage flightStorage)
+        public CustomerApiController(IFlightService flightService, IAirportService airportService, IMapper mapper)
         {
-            
-            _flightStorage = flightStorage;
+            _flightService = flightService;
+            _airportService = airportService;
+            _mapper = mapper;
         }
 
         [Route("airports")]
@@ -23,8 +29,9 @@ namespace FlightPlanner.Controllers
         {
             lock (balanceLock)
             {
-                var result = _flightStorage.FindAirports(search);
-                return result.Any() ? Ok(result) : NotFound();
+                var result = _airportService.SearchAirports(search);
+
+                return result.Any() ? Ok(result.Select(a => _mapper.Map<AirportRequest>(a)).ToList()) : NotFound();
             }
         }
 
@@ -32,31 +39,32 @@ namespace FlightPlanner.Controllers
         [HttpPost]
         public IActionResult SearchFlights(FlightSearchRequest request)
         {
-            if (_flightStorage.IsValidFlightSearchRequest(request))
+            if (_flightService.IsValidFlightSearchRequest(request))
             {
                 return BadRequest();
             }
 
             lock (balanceLock)
             {
-                var flightSearchResult = _flightStorage.SearchFlights(request);
-                var pageResult = new PageResult<Flight>
+                var flightSearchResult = _flightService.SearchFlights(request);
+                var pageResult = new PageResult<FlightRequest>
                 {
                     Page = 0,
                     TotalItems = flightSearchResult.Count(),
-                    Items = flightSearchResult.ToList()
+                    Items = flightSearchResult.Select(f => _mapper.Map<FlightRequest>(f)).ToList()
                 };
 
                 return Ok(pageResult);
             }
         }
 
-        [Route("flights/{id}")]
+        [Route("flights/{id:int}")]
         [HttpGet]
         public IActionResult GetFlights(int id)
         {
-            var flight = _flightStorage.GetFlight(id);
-            return flight == null ? NotFound() : Ok(flight);
+            var flight = _flightService.GetFlight(id);
+
+            return flight == null ? NotFound() : (IActionResult)Ok(_mapper.Map<FlightRequest>(flight));
         }
     }
 }
