@@ -1,16 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
-using FlightPlanner.Core;
 using FlightPlanner.Core.Interfaces;
 using FlightPlanner.Core.Models;
 using FlightPlanner.Core.Requests;
+using FlightPlanner.Core.Services;
 using FlightPlanner.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-
 
 namespace FlightPlanner.Controllers
 {
@@ -19,14 +17,12 @@ namespace FlightPlanner.Controllers
     public class AdminApiController : ControllerBase
     {
         private readonly object balanceLock = new object();
-        private readonly FlightPlannerDbContext _context;
         private readonly IEnumerable<IValidator> _validators;
         private readonly IFlightService _flightService;
         private readonly IMapper _mapper;
 
-        public AdminApiController(FlightPlannerDbContext context, IEnumerable<IValidator> validators, IFlightService flightService, IMapper mapper)
+        public AdminApiController(IEnumerable<IValidator> validators, IFlightService flightService, IMapper mapper)
         {
-            _context = context;
             _validators = validators;
             _flightService = flightService;
             _mapper = mapper;
@@ -45,7 +41,6 @@ namespace FlightPlanner.Controllers
         [HttpPut]
         public IActionResult PutFlight(FlightRequest request)
         {
-            
             if (!_validators.All(validator => validator.Validate(request)))
             {
                 return BadRequest();
@@ -69,12 +64,18 @@ namespace FlightPlanner.Controllers
         [HttpDelete]
         public IActionResult DeleteFlight(int id)
         {
-            lock (balanceLock)
-            {
-                _flightService.DeleteFlightById(id);
+            var flight = _flightService.GetByID(id);
 
+            if (flight == null) return Ok();
+
+            var result = _flightService.Delete(flight);
+
+            if (result.Success)
+            {
                 return Ok();
             }
+
+            return Problem(result.FormattedErrors);
         }
     }
 }

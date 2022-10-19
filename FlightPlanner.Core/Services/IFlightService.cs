@@ -2,7 +2,7 @@
 using FlightPlanner.Core.Models;
 using FlightPlanner.Core.Requests;
 
-namespace FlightPlanner.Core
+namespace FlightPlanner.Core.Services
 {
     public interface IFlightService : IEntityService<Flight>
     {

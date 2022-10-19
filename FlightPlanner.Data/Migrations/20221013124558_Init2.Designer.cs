@@ -28,7 +28,7 @@ namespace FlightPlanner.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("AirportCode")
+                    b.Property<string>("Airport")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("City")

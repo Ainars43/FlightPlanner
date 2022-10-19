@@ -2,15 +2,15 @@
 using System.Linq;
 using FlightPlanner.Core.Models;
 
-namespace FlightPlanner.Core
+namespace FlightPlanner.Core.Services
 {
     public interface IEntityService<T> where T : Entity
     {
         IQueryable<T> Query();
         IEnumerable<T> Get();
         T GetByID(int id);
-        void Create(T entity);
-        void Update(T entity);
-        void Delete(T entity);
+        ServiceResult Create(T entity);
+        ServiceResult Update(T entity);
+        ServiceResult Delete(T entity);
     }
 }

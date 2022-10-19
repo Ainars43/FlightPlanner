@@ -1,4 +1,4 @@
-﻿namespace FlightPlanner.Core
+﻿namespace FlightPlanner.Core.Services
 {
     public interface IDbExtendedService : IDbService
     {

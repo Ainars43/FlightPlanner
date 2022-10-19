@@ -1,8 +1,7 @@
 ﻿using System.Linq;
 using AutoMapper;
-using FlightPlanner.Core;
-using FlightPlanner.Core.Models;
 using FlightPlanner.Core.Requests;
+using FlightPlanner.Core.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FlightPlanner.Controllers
@@ -39,7 +38,7 @@ namespace FlightPlanner.Controllers
         [HttpPost]
         public IActionResult SearchFlights(FlightSearchRequest request)
         {
-            if (_flightService.IsValidFlightSearchRequest(request))
+            if (!_flightService.IsValidFlightSearchRequest(request))
             {
                 return BadRequest();
             }

@@ -1,9 +1,9 @@
-﻿using FlightPlanner.Core;
-using FlightPlanner.Core.Models;
+﻿using FlightPlanner.Core.Models;
 using System.Collections.Generic;
 using System.Linq;
 using FlightPlanner.Data;
 using Microsoft.EntityFrameworkCore;
+using FlightPlanner.Core.Services;
 
 namespace FlightPlanner.Services
 {
@@ -16,16 +16,20 @@ namespace FlightPlanner.Services
             _context = context;
         }
 
-        public void Create<T>(T entity) where T : Entity
+        public ServiceResult Create<T>(T entity) where T : Entity
         {
             _context.Set<T>().Add(entity);
             _context.SaveChanges();
+
+            return new ServiceResult(true).SetEntity(entity);
         }
 
-        public void Delete<T>(T entity) where T : Entity
+        public ServiceResult Delete<T>(T entity) where T : Entity
         {
             _context.Set<T>().Remove(entity);
             _context.SaveChanges();
+
+            return new ServiceResult(true);
         }
 
         public IEnumerable<T> Get<T>() where T : Entity
@@ -43,10 +47,12 @@ namespace FlightPlanner.Services
             return _context.Set<T>();
         }
 
-        public void Update<T>(T entity) where T : Entity
+        public ServiceResult Update<T>(T entity) where T : Entity
         {
             _context.Entry<T>(entity).State = EntityState.Modified;
             _context.SaveChanges();
+
+            return new ServiceResult(true).SetEntity(entity);
         }
     }
 }

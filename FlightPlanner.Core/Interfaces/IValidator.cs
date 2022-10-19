@@ -1,5 +1,4 @@
-﻿using FlightPlanner.Core.Models;
-using FlightPlanner.Core.Requests;
+﻿using FlightPlanner.Core.Requests;
 
 namespace FlightPlanner.Core.Interfaces
 {
