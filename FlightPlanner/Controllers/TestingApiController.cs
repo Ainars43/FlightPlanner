@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-using FlightPlanner.Core;
-using FlightPlanner.Data;
+﻿using FlightPlanner.Core.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FlightPlanner.Controllers

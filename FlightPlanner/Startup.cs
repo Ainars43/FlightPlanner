@@ -1,9 +1,10 @@
 using AutoMapper;
-using FlightPlanner.Core;
 using FlightPlanner.Core.Interfaces;
 using FlightPlanner.Core.Models;
+using FlightPlanner.Core.Services;
 using FlightPlanner.Data;
 using FlightPlanner.Filters;
+using FlightPlanner.Mappers;
 using FlightPlanner.Services;
 using FlightPlanner.Services.Validators;
 using Microsoft.AspNetCore.Authentication;
@@ -50,7 +51,7 @@ namespace FlightPlanner
             services.AddScoped<IEntityService<Airport>, EntityService<Airport>>();
             services.AddScoped<IValidator, AddFlightRequestValidator>();
             services.AddScoped<IValidator, AirportNameDuplicationValidator>();
-            services.AddScoped<IValidator, CorrectTimeValidator>();
+            services.AddScoped<IValidator, TimeValidator>();
             services.AddScoped<IValidator, AirportFromCityValidator>();
             services.AddScoped<IValidator, AirportFromCountryValidator>();
             services.AddScoped<IValidator, AirportFromNameValidator>();

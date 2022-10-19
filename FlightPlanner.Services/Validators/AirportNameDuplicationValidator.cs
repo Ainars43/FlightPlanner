@@ -1,6 +1,4 @@
-﻿using System;
-using FlightPlanner.Core.Interfaces;
-using FlightPlanner.Core.Models;
+﻿using FlightPlanner.Core.Interfaces;
 using FlightPlanner.Core.Requests;
 
 namespace FlightPlanner.Services.Validators
@@ -9,7 +7,12 @@ namespace FlightPlanner.Services.Validators
     {
         public bool Validate(FlightRequest request)
         {
-            return !string.Equals(request.From.Airport.Trim(), request.To.Airport.Trim(), StringComparison.CurrentCultureIgnoreCase);
+            if (request.From == null || request.To == null || request.From.Airport == null || request.To.Airport == null)
+            {
+                return false;
+            }
+
+            return request.From.Airport.Trim().ToLower() != request.To.Airport.Trim().ToLower();
         }
     }
 }

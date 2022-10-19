@@ -1,5 +1,4 @@
 ﻿using FlightPlanner.Core.Interfaces;
-using FlightPlanner.Core.Models;
 using FlightPlanner.Core.Requests;
 
 namespace FlightPlanner.Services.Validators

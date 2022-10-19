@@ -774,6 +774,17 @@
           "Microsoft.NETCore.Platforms": "3.1.0"
         }
       },
+      "MoreLinq.Portable/1.4.0": {
+        "runtime": {
+          "lib/portable-net4+sl5+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1/MoreLinq.Portable.dll": {
+            "assemblyVersion": "1.4.18916.0",
+            "fileVersion": "1.4.18916.839"
+          }
+        },
+        "compile": {
+          "lib/portable-net4+sl5+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1/MoreLinq.Portable.dll": {}
+        }
+      },
       "NETStandard.Library/1.6.1": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "3.1.0",
@@ -1845,7 +1856,8 @@
       "FlightPlanner.Services/1.0.0": {
         "dependencies": {
           "FlightPlanner.Core": "1.0.0",
-          "FlightPlanner.Data": "1.0.0"
+          "FlightPlanner.Data": "1.0.0",
+          "MoreLinq.Portable": "1.4.0"
         },
         "runtime": {
           "FlightPlanner.Services.dll": {}
@@ -3789,6 +3801,13 @@
       "sha512": "sha512-mtVirZr++rq+XCDITMUdnETD59XoeMxSpLRIII7JRI6Yj0LEDiO1pPn0ktlnIj12Ix8bfvQqQDMMIF9wC98oCA==",
       "path": "microsoft.win32.systemevents/4.7.0",
       "hashPath": "microsoft.win32.systemevents.4.7.0.nupkg.sha512"
+    },
+    "MoreLinq.Portable/1.4.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-PQnzscNgbnvP9CEEDTi4D2yyiSnzcNBEtI3fbAEHFswZc6QbNKyhBt+cs7WnPIr3Y06yEOqxelBdvFfcfEEC/g==",
+      "path": "morelinq.portable/1.4.0",
+      "hashPath": "morelinq.portable.1.4.0.nupkg.sha512"
     },
     "NETStandard.Library/1.6.1": {
       "type": "package",

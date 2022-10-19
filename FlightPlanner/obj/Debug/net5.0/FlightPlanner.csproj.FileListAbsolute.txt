@@ -74,3 +74,4 @@ C:\Projects\FlightPlanner\FlightPlanner\bin\Debug\net5.0\FlightPlanner.Core.pdb
 C:\Projects\FlightPlanner\FlightPlanner\bin\Debug\net5.0\FlightPlanner.Data.pdb
 C:\Projects\FlightPlanner\FlightPlanner\bin\Debug\net5.0\FlightPlanner.Services.pdb
 C:\Projects\FlightPlanner\FlightPlanner\obj\Debug\net5.0\FlightPlanner.MvcApplicationPartsAssemblyInfo.cs
+C:\Projects\FlightPlanner\FlightPlanner\bin\Debug\net5.0\MoreLinq.Portable.dll
